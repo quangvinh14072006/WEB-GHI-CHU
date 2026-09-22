@@ -35,7 +35,7 @@ function Settings() {
       body: JSON.stringify(profile),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then((data) => { 
         // alert("Lưu thành công!");
         // Áp dụng màu nền ngay lập tức
         document.body.style.backgroundColor =
