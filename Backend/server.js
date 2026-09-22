@@ -7,6 +7,7 @@ const app = express();
 app.use(cors()); // Cho phép FE gọi API
 app.use(express.json()); // Đọc dữ liệu JSON từ FE gửi lên
 const profilePath = path.join(__dirname, "data", "profile.json");
+
 // API 1: Đọc thông tin Profile
 app.get("/api/profile", (req, res) => {
   try {
@@ -17,6 +18,7 @@ app.get("/api/profile", (req, res) => {
     res.status(500).json({ message: "Lỗi đọc file" });
   }
 });
+
 // API 2: Cập nhật Profile
 app.put("/api/profile", (req, res) => {
   try {
@@ -28,13 +30,14 @@ app.put("/api/profile", (req, res) => {
     res.status(500).json({ message: "Lỗi ghi file" });
   }
 });
-const PORT = 5000;
+
 const notesDir = path.join(__dirname, "data", "notes");
 // Khởi tạo thư mục tự động nếu chưa tồn tại
 if (!fs.existsSync(notesDir)) {
   fs.mkdirSync(notesDir, { recursive: true });
 }
 const getFilePath = (topic) => path.join(notesDir, `${topic}.json`);
+
 // 1. Lấy danh sách ghi chú (GET)
 app.get("/api/notes/:topic", (req, res) => {
   const filePath = getFilePath(req.params.topic);
@@ -46,6 +49,7 @@ app.get("/api/notes/:topic", (req, res) => {
     res.status(500).json({ message: "Lỗi đọc danh sách ghi chú" });
   }
 });
+
 // 2. Thêm mới ghi chú (POST)
 app.post("/api/notes/:topic", (req, res) => {
   const filePath = getFilePath(req.params.topic);
@@ -67,6 +71,7 @@ app.post("/api/notes/:topic", (req, res) => {
     res.status(500).json({ message: "Lỗi thêm ghi chú" });
   }
 });
+
 // 3. Sửa ghi chú (PUT)
 app.put("/api/notes/:topic/:id", (req, res) => {
   const filePath = getFilePath(req.params.topic);
@@ -85,6 +90,7 @@ app.put("/api/notes/:topic/:id", (req, res) => {
     res.status(500).json({ message: "Lỗi cập nhật ghi chú" });
   }
 });
+
 // 4. Xóa ghi chú (DELETE)
 app.delete("/api/notes/:topic/:id", (req, res) => {
   const filePath = getFilePath(req.params.topic);
@@ -97,11 +103,13 @@ app.delete("/api/notes/:topic/:id", (req, res) => {
     res.status(500).json({ message: "Lỗi xóa ghi chú" });
   }
 });
+
 const privateNotesFile = path.join(__dirname, "data", "private.json");
 // Khởi tạo file private.json nếu chưa tồn tại
 if (!fs.existsSync(privateNotesFile)) {
   fs.writeFileSync(privateNotesFile, "[]", "utf8");
 }
+
 // 1. API Xác thực mật khẩu
 app.post("/api/private/auth", (req, res) => {
   try {
@@ -116,6 +124,7 @@ app.post("/api/private/auth", (req, res) => {
     res.status(500).json({ message: "Lỗi hệ thống xác thực" });
   }
 });
+
 // 2. API Lấy danh sách Ghi chú riêng tư
 app.get("/api/private/notes", (req, res) => {
   try {
@@ -125,6 +134,7 @@ app.get("/api/private/notes", (req, res) => {
     res.status(500).json({ message: "Lỗi đọc ghi chú riêng tư" });
   }
 });
+
 // 3. API Thêm Ghi chú riêng tư
 app.post("/api/private/notes", (req, res) => {
   try {
@@ -143,12 +153,41 @@ app.post("/api/private/notes", (req, res) => {
     res.status(500).json({ message: "Lỗi thêm ghi chú kín" });
   }
 });
-//Kiểm tra backend có đang chạy không
-app.get("/", (req, res) => {
-  res.send("Backend đag chạy !");
+//4 API Sửa Ghi chú riêng tư (PUT)
+app.put("/api/private/notes/:id", (req, res) => {
+  try {
+    let notes = JSON.parse(fs.readFileSync(privateNotesFile, "utf8"));
+    const index = notes.findIndex((n) => n.id === req.params.id);
+
+    if (index !== -1) {
+      notes[index].title = req.body.title || notes[index].title;
+      notes[index].content = req.body.content || notes[index].content;
+      notes[index].updatedAt = new Date().toISOString();
+
+      fs.writeFileSync(privateNotesFile, JSON.stringify(notes, null, 2), "utf8");
+      return res.json({ success: true, message: "Đã sửa ghi chú kín thành công" });
+    }
+    res.status(404).json({ message: "Không tìm thấy ghi chú" });
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi cập nhật ghi chú kín" });
+  }
 });
 
+//5 API Xóa Ghi chú riêng tư (DELETE)
+app.delete("/api/private/notes/:id", (req, res) => {
+  try {
+    let notes = JSON.parse(fs.readFileSync(privateNotesFile, "utf8"));
+    const newNotes = notes.filter((n) => n.id !== req.params.id);
+
+    fs.writeFileSync(privateNotesFile, JSON.stringify(newNotes, null, 2), "utf8");
+    res.json({ success: true, message: "Đã xóa ghi chú kín thành công" });
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi xóa ghi chú kín" });
+  }
+});
+
+const PORT = 5000;
 app.listen(PORT, () =>
-  console.log(`Backend chạy tại http://localhost:${PORT}/`),
+  console.log(`Backend chạy tại http://localhost:${PORT}/`)
 );
 //123
