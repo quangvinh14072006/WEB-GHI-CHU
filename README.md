@@ -1,21 +1,48 @@
-# 📝 ĐỒ ÁN WEB GHI CHÚ (NOTE APP)
+# ĐỒ ÁN MÔN HỌC: ỨNG DỤNG QUẢN LÝ GHI CHÚ (REACTJS & NODEJS)
 
-Hệ thống quản lý ghi chú cá nhân kết hợp ghi chú riêng tư bảo mật bằng mật khẩu, xây dựng theo mô hình Client - Server (ReactJS & Node.js Express).
+**Giảng viên hướng dẫn:** [Tên giảng viên]
+**Nhóm thực hiện:** Nhóm [Số nhóm]
+**Thành viên:**
 
----
+1. [Trần Quang Vinh] - [0306241421] - Vai trò: PM & QA
+2. [Nguyễn Thanh Bình] - [0306241431] - Vai trò: Frontend Developer
+3. [Phan Văn Hiếu] - [0306241442] - Vai trò: Backend Developer
 
-## 🛠 Công nghệ sử dụng
+## 1. Công nghệ sử dụng
 
-* **Frontend:** ReactJS (Vite), React Router DOM (`react-router-dom`), JavaScript (ES6+).
-* **Backend:** Node.js, Express.js, File System (`fs`).
-* **Lưu trữ dữ liệu:** Chuẩn định dạng JSON (`notes.json`, `private.json`, `profile.json`).
+- **Frontend:** ReactJS (Vite), React Router DOM.
+- **Backend:** Node.js, Express.js.
+- **Cơ sở dữ liệu:** File System (lưu trữ bằng định dạng `.json` để dễ quản lý và
+  triển khai).
 
----
+## 2. Yêu cầu môi trường
 
-## 🚀 Hướng dẫn cài đặt & Khởi chạy
+- Máy tính cần cài đặt sẵn **Node.js** (phiên bản v16 trở lên).
 
-### 1. Khởi chạy Backend (Port 5000)
+## 3. Hướng dẫn Cài đặt & Chạy dự án (Rất quan trọng)
+
+Dự án được chia làm 2 phần chạy độc lập. Vui lòng mở 2 cửa sổ Terminal (Command
+Prompt) để chạy song song.
+
+### Bước 1: Khởi động Backend (Máy chủ API)
+
+Mở Terminal 1, di chuyển vào thư mục `backend` và chạy lệnh:
+
 ```bash
 cd backend
 npm install
 node server.js
+Lưu ý: Backend sẽ chạy tại http://localhost:5000. Hệ thống sẽ tự động sinh thư mục
+data/ chứa các file JSON. Vui lòng không xóa thư mục này khi đang chạy ứng dụng.
+Bước 2: Khởi động Frontend (Giao diện)
+Mở Terminal 2, di chuyển vào thư mục frontend và chạy lệnh:
+cd frontend
+npm install
+npm run dev
+Lưu ý: Frontend sẽ chạy tại http://localhost:5173 (hoặc cổng khác hiển thị trên
+terminal). Mở đường dẫn này trên trình duyệt (Khuyến nghị Google Chrome) để sử dụng
+hệ thống.
+4. Tài khoản / Mật khẩu Demo
+Web không yêu cầu đăng nhập tài khoản.
+Để xem khu vực Ghi chú riêng tư, vui lòng vào menu "Cài đặt" để tạo mật khẩu mới.
+```

@@ -164,8 +164,15 @@ app.put("/api/private/notes/:id", (req, res) => {
       notes[index].content = req.body.content || notes[index].content;
       notes[index].updatedAt = new Date().toISOString();
 
-      fs.writeFileSync(privateNotesFile, JSON.stringify(notes, null, 2), "utf8");
-      return res.json({ success: true, message: "Đã sửa ghi chú kín thành công" });
+      fs.writeFileSync(
+        privateNotesFile,
+        JSON.stringify(notes, null, 2),
+        "utf8",
+      );
+      return res.json({
+        success: true,
+        message: "Đã sửa ghi chú kín thành công",
+      });
     }
     res.status(404).json({ message: "Không tìm thấy ghi chú" });
   } catch (error) {
@@ -179,7 +186,11 @@ app.delete("/api/private/notes/:id", (req, res) => {
     let notes = JSON.parse(fs.readFileSync(privateNotesFile, "utf8"));
     const newNotes = notes.filter((n) => n.id !== req.params.id);
 
-    fs.writeFileSync(privateNotesFile, JSON.stringify(newNotes, null, 2), "utf8");
+    fs.writeFileSync(
+      privateNotesFile,
+      JSON.stringify(newNotes, null, 2),
+      "utf8",
+    );
     res.json({ success: true, message: "Đã xóa ghi chú kín thành công" });
   } catch (error) {
     res.status(500).json({ message: "Lỗi xóa ghi chú kín" });
@@ -188,6 +199,6 @@ app.delete("/api/private/notes/:id", (req, res) => {
 
 const PORT = 5000;
 app.listen(PORT, () =>
-  console.log(`Backend chạy tại http://localhost:${PORT}/`)
+  console.log(`Backend chạy tại http://localhost:${PORT}/`),
 );
 //123

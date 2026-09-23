@@ -7,13 +7,6 @@
     "updatedAt": "2026-09-22T14:19:21.775Z"
   },
   {
-    "id": "1790087605478",
-    "title": "Toán học",
-    "content": "Ghi chú của học toán nha mấy ba\n",
-    "createdAt": "2026-09-22T14:33:25.478Z",
-    "updatedAt": "2026-09-22T14:33:25.478Z"
-  },
-  {
     "id": "1790087622755",
     "title": "Ngữ Văn",
     "content": "Ghi chú của ngữ văn á nha\n",
@@ -26,5 +19,12 @@
     "content": "Ghi chú này là của tin học",
     "createdAt": "2026-09-22T14:33:54.239Z",
     "updatedAt": "2026-09-22T14:33:54.239Z"
+  },
+  {
+    "id": "1790125678021",
+    "title": "1",
+    "content": "1",
+    "createdAt": "2026-09-23T01:07:58.021Z",
+    "updatedAt": "2026-09-23T01:07:58.021Z"
   }
 ]
