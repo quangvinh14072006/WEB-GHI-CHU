@@ -1,7 +1,7 @@
 # ĐỒ ÁN MÔN HỌC: ỨNG DỤNG QUẢN LÝ GHI CHÚ (REACTJS & NODEJS)
 
-**Giảng viên hướng dẫn:** [Tên giảng viên]
-**Nhóm thực hiện:** Nhóm [Số nhóm]
+**Giảng viên hướng dẫn:** [Lữ Cao Tiến]
+**Nhóm thực hiện:** Nhóm [2]
 **Thành viên:**
 
 1. [Trần Quang Vinh] - [0306241421] - Vai trò: PM & QA
